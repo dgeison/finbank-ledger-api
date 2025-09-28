@@ -28,4 +28,4 @@ O formato segue parcialmente o *Keep a Changelog* e adota versionamento semânti
 
 ---
 
-[1.0.0]: https://github.com/SEU_USUARIO/finbank-ledger-api/releases/tag/v1.0.0
+[1.0.0]: https://github.com/dgeison/finbank-ledger-api/releases/tag/v1.0.0

@@ -130,7 +130,7 @@ powershell -ExecutionPolicy Bypass -File .\scripts\test-flow.ps1 -Cpf 1234567890
 ## ⚡ Quick Start
 
 ```bash
-git clone https://github.com/SEU_USUARIO/finbank-ledger-api.git
+git clone https://github.com/dgeison/finbank-ledger-api.git
 cd finbank-ledger-api
 npm install
 npm run dev
@@ -176,7 +176,7 @@ Checklist antes de subir:
 	 git add .
 	 git commit -m "chore: initial public version"
 	 git branch -M main
-	 git remote add origin https://github.com/SEU_USUARIO/finbank-ledger-api.git
+		git remote add origin https://github.com/dgeison/finbank-ledger-api.git
 	 git push -u origin main
 	 ```
 4. Criar issue template / PR template (opcional para open source).

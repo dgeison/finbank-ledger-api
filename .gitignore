@@ -1,16 +1,58 @@
+# =====================
+# Dependências & builds
+# =====================
 node_modules/
 dist/
+build/
 coverage/
+tmp/
+temp/
+*.tgz
+
+# =====================
+# Logs & debug
+# =====================
+logs/
 *.log
 npm-debug.log*
 yarn-error.log
-logs/
+pnpm-debug.log*
+
+# =====================
+# SO / Editor / IDE
+# =====================
 .DS_Store
 Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+
+# =====================
+# Ambiente / credenciais
+# =====================
 .env
+.env.*.local
 .env.local
 *.pid
-.idea/
-.vscode/
-*.tgz
-tmp/
+*.seed
+
+# =====================
+# Cobertura / testes / relatórios
+# =====================
+.nyc_output/
+coverage-final.json
+jest-html-reporters-*/
+
+# =====================
+# Misc
+# =====================
+*.iml
+*.swp
+*.swo
+*.orig
+*.bak
+*.tmp
+*.cache
+*.tsbuildinfo
+package-lock.json
