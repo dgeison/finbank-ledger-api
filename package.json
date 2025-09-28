@@ -4,7 +4,7 @@
   "description": "Educational in-memory banking ledger API built with Node.js and Express (CPF-based accounts, deposits, withdrawals, statements).",
   "main": "src/server.js",
   "license": "MIT",
-  "author": "Seu Nome <you@example.com>",
+  "author": "Dgeison S. Peixoto <dgeison.peixoto@gmail.com>",
   "keywords": [
     "node",
     "express",
@@ -16,21 +16,27 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SEU_USUARIO/finbank-ledger-api.git"
+    "url": "git+https://github.com/dgeison/finbank-ledger-api.git"
   },
   "bugs": {
-    "url": "https://github.com/SEU_USUARIO/finbank-ledger-api/issues"
+    "url": "https://github.com/dgeison/finbank-ledger-api/issues"
   },
-  "homepage": "https://github.com/SEU_USUARIO/finbank-ledger-api#readme",
+  "homepage": "https://github.com/dgeison/finbank-ledger-api#readme",
   "engines": {
     "node": ">=16"
   },
   "scripts": {
     "dev": "nodemon src/server.js",
-    "start": "node src/server.js"
+    "start": "node src/server.js",
+    "lint": "eslint \"src/**/*.js\"",
+    "lint:fix": "eslint \"src/**/*.js\" --fix",
+    "format": "prettier --write \"src/**/*.js\""
   },
   "devDependencies": {
-    "nodemon": "^2.0.12"
+    "nodemon": "^2.0.12",
+    "eslint": "^8.57.0",
+    "@eslint/js": "^9.9.0",
+    "prettier": "^3.3.3"
   },
   "dependencies": {
     "express": "^4.17.1",
