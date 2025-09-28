@@ -1,13 +1,25 @@
 services:
-  finapi:
-    build: .
-    container_name: finapi_app
+  finapi-dev:
+    build:
+      context: .
+      target: dev
+    container_name: finbank_dev
     ports:
       - "3333:3333"
     environment:
       - NODE_ENV=development
     volumes:
-      - ./:/usr/src/app
-      - /usr/src/app/node_modules
-    command: npm run dev
+      - ./:/app
+      - /app/node_modules
+    restart: unless-stopped
+
+  finapi-prod:
+    build:
+      context: .
+      target: prod
+    container_name: finbank_prod
+    ports:
+      - "3434:3333"
+    environment:
+      - NODE_ENV=production
     restart: unless-stopped
