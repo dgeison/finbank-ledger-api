@@ -257,6 +257,206 @@ app.post('/simulate', (request, response) => {
   });
 });
 
+// Playground HTML para testar endpoints via navegador
+app.get("/playground", (req, res) => {
+  res.setHeader("Content-Type", "text/html; charset=utf-8");
+  res.send(`<!DOCTYPE html>
+  <html lang="pt-BR">
+    <head>
+      <meta charset="UTF-8" />
+      <title>FinBank Playground</title>
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <style>
+        :root { color-scheme: light dark; }
+        body { font-family: system-ui, Arial, sans-serif; margin:0; padding:0; background:#f5f7fa; }
+        header { background:#1d3557; color:#fff; padding:16px 28px; }
+        h1 { margin:0; font-size:1.4rem; }
+        main { padding:20px; max-width:1200px; margin:0 auto; }
+        section { background:#fff; border:1px solid #dde3eb; border-radius:8px; padding:16px 18px; margin-bottom:18px; box-shadow:0 1px 2px rgba(0,0,0,.05); }
+        section h2 { margin-top:0; font-size:1.05rem; letter-spacing:.5px; }
+        label { display:block; font-size:.75rem; text-transform:uppercase; margin-bottom:4px; color:#444; letter-spacing:.5px; }
+        input, select { width:100%; padding:8px 10px; margin-bottom:10px; border:1px solid #ccd2d9; border-radius:4px; font-size:.9rem; }
+        input:focus { outline:2px solid #457b9d; }
+        button { cursor:pointer; background:#1d3557; color:#fff; border:none; border-radius:4px; padding:8px 14px; font-size:.8rem; letter-spacing:.5px; text-transform:uppercase; }
+        button.secondary { background:#457b9d; }
+        button.danger { background:#e63946; }
+        button:disabled { opacity:.5; cursor:not-allowed; }
+        .row { display:grid; gap:14px; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); }
+        pre { background:#0b1520; color:#d8f2ff; padding:12px 14px; border-radius:6px; overflow:auto; font-size:.75rem; line-height:1.3; }
+        .flex { display:flex; gap:8px; flex-wrap:wrap; }
+        .tag { background:#1d3557; color:#fff; padding:2px 6px; font-size:.6rem; border-radius:3px; letter-spacing:.5px; }
+        nav { margin:12px 0 28px; display:flex; flex-wrap:wrap; gap:6px; }
+        nav a { text-decoration:none; font-size:.65rem; background:#e5ecf3; color:#1d3557; padding:4px 8px; border-radius:4px; }
+        footer { text-align:center; font-size:.65rem; padding:40px 0 25px; color:#555; }
+        .status { font-size:.65rem; padding:2px 6px; border-radius:4px; background:#eee; }
+        .good { background:#2d6a4f; color:#fff; }
+        .bad { background:#d00000; color:#fff; }
+        .grid-2 { display:grid; gap:16px; grid-template-columns:repeat(auto-fit,minmax(320px,1fr)); }
+        .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+        details summary { cursor:pointer; font-weight:600; }
+        .warn { color:#b45309; font-size:.7rem; }
+      </style>
+    </head>
+    <body>
+      <header>
+        <h1>FinBank Playground</h1>
+      </header>
+      <main>
+        <nav>
+          <a href="#config">Config</a>
+          <a href="#conta">Conta</a>
+          <a href="#mov">Movimentações</a>
+          <a href="#extrato">Extrato</a>
+          <a href="#simulate">Simulação</a>
+          <a href="#debug">Debug</a>
+        </nav>
+        <section id="config">
+          <h2>Configuração</h2>
+          <div class="row">
+            <div>
+              <label>CPF</label>
+              <input id="cpf" placeholder="Somente números" />
+            </div>
+            <div>
+              <label>Nome</label>
+              <input id="nome" placeholder="Nome do titular" />
+            </div>
+          </div>
+          <div class="flex">
+            <button id="salvarConfig">Salvar Config</button>
+            <button id="limparConfig" class="secondary">Limpar Config</button>
+          </div>
+          <p class="warn">Os dados não persistem entre reinicializações do servidor (memória).</p>
+        </section>
+        <section id="conta">
+          <h2>Conta</h2>
+          <div class="flex">
+            <button id="criarConta">Criar Conta</button>
+            <button id="verConta" class="secondary">Ver Conta</button>
+            <button id="atualizarNome" class="secondary">Atualizar Nome</button>
+            <button id="deletarConta" class="danger">Deletar Conta</button>
+          </div>
+        </section>
+        <section id="mov">
+          <h2>Movimentações</h2>
+          <div class="row">
+            <div>
+              <label>Descrição (depósito)</label>
+              <input id="descDeposito" value="Depósito" />
+            </div>
+            <div>
+              <label>Valor (depósito)</label>
+              <input id="valorDeposito" type="number" value="100" />
+            </div>
+          </div>
+          <div class="flex">
+            <button id="fazerDeposito">Depositar</button>
+          </div>
+          <hr />
+          <div class="row">
+            <div>
+              <label>Valor (saque)</label>
+              <input id="valorSaque" type="number" value="50" />
+            </div>
+          </div>
+          <div class="flex">
+            <button id="fazerSaque" class="danger">Sacar</button>
+          </div>
+        </section>
+        <section id="extrato">
+          <h2>Extrato / Saldo</h2>
+          <div class="row">
+            <div>
+              <label>Data (YYYY-MM-DD)</label>
+              <input id="filtroData" placeholder="2025-09-28" />
+            </div>
+          </div>
+          <div class="flex">
+            <button id="verExtrato">Extrato Completo</button>
+            <button id="extratoData" class="secondary">Extrato por Data</button>
+            <button id="verSaldo" class="secondary">Saldo</button>
+          </div>
+        </section>
+        <section id="simulate">
+          <h2>Simulação</h2>
+          <div class="flex">
+            <button id="simular">Simular Operações</button>
+            <button id="simularReset" class="secondary">Simular (Reset)</button>
+          </div>
+        </section>
+        <section id="debug">
+          <h2>Saída</h2>
+          <pre id="output">{ }</pre>
+        </section>
+        <footer>
+          FinBank Ledger API Playground • ${new Date().getFullYear()} • Código educativo
+        </footer>
+      </main>
+      <script>
+        const $ = (id) => document.getElementById(id);
+        const out = $("output");
+        const persistKeys = ["cpf","nome"]; 
+        // Restaura valores
+        persistKeys.forEach(k=>{ const v = localStorage.getItem('finbank_'+k); if(v) $(k).value = v; });
+
+        function show(obj){
+          out.textContent = (typeof obj === 'string') ? obj : JSON.stringify(obj, null, 2);
+        }
+
+        function headers(){
+          const cpf = $("cpf").value.trim();
+          return cpf ? { 'Content-Type':'application/json', 'cpf': cpf } : { 'Content-Type':'application/json' };
+        }
+
+        async function api(path, method='GET', body){
+          try {
+            const res = await fetch(path, { method, headers: headers(), body: body ? JSON.stringify(body): undefined });
+            const text = await res.text();
+            let data;
+            try { data = text ? JSON.parse(text) : { status: res.status }; } catch(e){ data = { raw: text, status: res.status }; }
+            if(!res.ok){ throw { status: res.status, data }; }
+            show(data);
+            return data;
+          } catch(err){ show({ error: true, ...err }); throw err; }
+        }
+
+        $("salvarConfig").onclick = () => {
+          persistKeys.forEach(k=> localStorage.setItem('finbank_'+k, $(k).value.trim()));
+          show({ message: 'Config salva' });
+        };
+        $("limparConfig").onclick = () => {
+          persistKeys.forEach(k=> localStorage.removeItem('finbank_'+k));
+          persistKeys.forEach(k=> $(k).value='');
+          show({ message: 'Config limpa' });
+        };
+
+        $("criarConta").onclick = () => {
+          api('/account','POST',{ cpf: $("cpf").value.trim(), name: $("nome").value.trim() });
+        };
+        $("verConta").onclick = () => api('/account');
+        $("atualizarNome").onclick = () => api('/account','PUT',{ name: $("nome").value.trim() });
+        $("deletarConta").onclick = () => api('/account','DELETE');
+
+        $("fazerDeposito").onclick = () => api('/deposit','POST',{ description: $("descDeposito").value, amount: Number($("valorDeposito").value) });
+        $("fazerSaque").onclick = () => api('/withdraw','POST',{ amount: Number($("valorSaque").value) });
+
+        $("verExtrato").onclick = () => api('/statement');
+        $("extratoData").onclick = () => {
+          const d = $("filtroData").value.trim(); if(!d) { return show({ error:'Informe a data'}); }
+          api('/statement/date?date='+encodeURIComponent(d));
+        };
+        $("verSaldo").onclick = () => api('/balance');
+
+        $("simular").onclick = () => api('/simulate','POST',{ cpf: $("cpf").value.trim(), name: $("nome").value.trim() || 'Cliente Demo' });
+        $("simularReset").onclick = () => api('/simulate','POST',{ cpf: $("cpf").value.trim(), name: $("nome").value.trim() || 'Cliente Demo', reset: true });
+
+        // Auto definir data atual
+        const today = new Date().toISOString().slice(0,10); $("filtroData").placeholder = today; 
+      </script>
+    </body>
+  </html>`);
+});
+
 // Exportar o app para permitir testes sem subir a porta automaticamente
 module.exports = app;
 
