@@ -1,0 +1,39 @@
+{
+  "name": "finbank-ledger-api",
+  "version": "1.0.0",
+  "description": "Educational in-memory banking ledger API built with Node.js and Express (CPF-based accounts, deposits, withdrawals, statements).",
+  "main": "src/server.js",
+  "license": "MIT",
+  "author": "Seu Nome <you@example.com>",
+  "keywords": [
+    "node",
+    "express",
+    "banking",
+    "api",
+    "ledger",
+    "fintech",
+    "educational"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SEU_USUARIO/finbank-ledger-api.git"
+  },
+  "bugs": {
+    "url": "https://github.com/SEU_USUARIO/finbank-ledger-api/issues"
+  },
+  "homepage": "https://github.com/SEU_USUARIO/finbank-ledger-api#readme",
+  "engines": {
+    "node": ">=16"
+  },
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "uuid": "^8.3.2"
+  }
+}

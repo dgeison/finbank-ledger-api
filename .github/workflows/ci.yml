@@ -1,0 +1,36 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm install --no-audit --no-fund
+
+      - name: Lint placeholder (skip)
+        run: echo "No lint configured yet"
+
+      - name: Run basic smoke test
+        run: |
+          node -e "const app=require('./src/index'); if(!app) { process.exit(1) } console.log('App loaded')"
+
+      - name: Build docker image (optional)
+        run: docker build -t finbank-ledger-api .
+
+      - name: Summary
+        run: echo "CI pipeline completed successfully"
