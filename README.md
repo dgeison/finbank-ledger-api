@@ -242,6 +242,5 @@ MIT. Livre para estudo e extensão.
 
 ---
 
-Se quiser que eu já adicione validação de CPF ou IDs nas operações, é só pedir.
 
 
